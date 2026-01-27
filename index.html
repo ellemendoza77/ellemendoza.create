@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Looking Becomes Form | Elle Mendoza</title>
+    <meta name="description" content="Portfolio of Elle Mendoza, showcasing contemporary abstract and minimalist art.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <style>
+        /* Home Specific Styles */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        .hero h1 {
+            font-size: 5vw;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .featured-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container"
+            style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
+            <a href="index.html" class="logo"
+                style="display: flex; align-items: center; gap: 1rem; text-decoration: none;">
+                <img src="assets/logo/Logo.png" alt="Elle Mendoza Logo"
+                    style="height: 100%; width: auto; object-fit: contain;">
+                <span class="logo-text">Elle Mendoza</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero full-width-hero">
+            <div class="container" style="text-align: center;">
+                <h1>Visual Harmony in <br> <span style="font-style: italic; color: var(--accent-gold);">Motion &
+                        Stillness</span></h1>
+                <p>Exploring the delicate balance between chaos and order through abstract expressionism.</p>
+                <a href="gallery.html" class="btn">View Collection</a>
+            </div>
+        </section>
+
+        <div class="container">
+            <section class="home-about-preview">
+                <div class="about-preview-container">
+                    <div class="preview-text">
+                        <h2>About the Artist</h2>
+                        <p>Elle Mendoza is a Kansas City based artist exploring the intersection of emotion,
+                            observation, and personal narrative across fine art and digital media. Her work invites
+                            viewers to slow down and engage on an emotional and sensory level.</p>
+                        <a href="about.html" class="btn">Read More</a>
+                    </div>
+                    <div class="preview-image">
+                        <img src="assets/about/Me.jpg" alt="Elle Mendoza">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Elle Mendoza. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/data.js"></script>
+    <script>
+        // Any specific home page logic if needed in future
+    </script>
+    <script src="scripts/cursor.js"></script>
+</body>
+
+</html>

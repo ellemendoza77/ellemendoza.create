@@ -1,0 +1,12 @@
+# System files
+.DS_Store
+*.log
+
+# Development
+node_modules/
+.vercel
+
+# Local server logs
+server.log
+ngrok.log
+ngrok_final.log

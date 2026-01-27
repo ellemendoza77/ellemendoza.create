@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Looking Becomes Form | Gallery</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <style>
+        /* Masonry Gallery Wall Layout */
+        .gallery-grid {
+            column-count: 3;
+            column-gap: 0.75rem;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .gallery-grid {
+                column-count: 1;
+            }
+        }
+
+        .art-card {
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
+            break-inside: avoid;
+            margin-bottom: 0.75rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 0;
+            border: none;
+            background: transparent;
+        }
+
+        .art-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .art-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            display: block;
+        }
+
+        .art-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        /* Hover Overlay with Title */
+        .art-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .art-card:hover .art-overlay {
+            opacity: 1;
+        }
+
+        .art-card:hover .art-image-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .art-overlay-title {
+            color: white;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+            transform: translateY(10px);
+            transition: transform 0.4s ease;
+        }
+
+        .art-card:hover .art-overlay-title {
+            transform: translateY(0);
+        }
+
+        .art-overlay-meta {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            transform: translateY(10px);
+            transition: transform 0.4s ease 0.05s;
+        }
+
+        .art-card:hover .art-overlay-meta {
+            transform: translateY(0);
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            /* Flex is used for centering */
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            display: flex;
+            max-width: 90vw;
+            max-height: 90vh;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .lightbox-img-wrapper {
+            flex: 1;
+            max-height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-details {
+            width: 300px;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: var(--text-main);
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-content {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .lightbox-details {
+                width: 100%;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            .lightbox-img {
+                max-height: 60vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container"
+            style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
+            <a href="index.html" class="logo"
+                style="display: flex; align-items: center; gap: 1rem; text-decoration: none;">
+                <img src="assets/logo/Logo.png" alt="Elle Mendoza Logo"
+                    style="height: 100%; width: auto; object-fit: contain;">
+                <span class="logo-text">Elle Mendoza</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="gallery.html" class="active">Gallery</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <h1 style="margin-bottom: 2rem;">Selected Works</h1>
+
+            <!-- Filter Buttons -->
+            <div class="filters" style="margin-bottom: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="traditional">Traditional</button>
+                <button class="filter-btn" data-filter="digital">Digital</button>
+                <button class="filter-btn" data-filter="photography">Photography</button>
+            </div>
+
+            <div class="gallery-grid" id="gallery-container">
+                <!-- Artwork injected here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Elle Mendoza. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <div class="lightbox-img-wrapper">
+                <img src="" alt="" class="lightbox-img" id="lb-img">
+            </div>
+            <div class="lightbox-details">
+                <h2 id="lb-title" style="margin-bottom: 0.5rem; font-size: 1.5rem;"></h2>
+                <p id="lb-medium" style="color: var(--accent-gold); margin-bottom: 1rem;"></p>
+                <p id="lb-desc" style="line-height: 1.6; color: var(--text-muted);"></p>
+                <p id="lb-year" style="margin-top: 1rem; font-size: 0.8rem; font-style: italic;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/data.js"></script>
+    <script>
+        const container = document.getElementById('gallery-container');
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-img');
+        const lbTitle = document.getElementById('lb-title');
+        const lbMedium = document.getElementById('lb-medium');
+        const lbDesc = document.getElementById('lb-desc');
+        const lbYear = document.getElementById('lb-year');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // Helper to categorize medium
+        function getCategory(medium) {
+            const m = medium.toLowerCase();
+            if (m.includes('digital')) return 'digital';
+            if (m.includes('photography') || m.includes('film')) return 'photography';
+            return 'traditional';
+        }
+
+        // Render Grid
+        function renderGallery(filter = 'all') {
+            container.innerHTML = '';
+
+            const filtered = artworks.filter(art => {
+                if (filter === 'all') return true;
+                return getCategory(art.medium) === filter;
+            });
+
+            // Sort logic: Newest Year First
+            filtered.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+
+            filtered.forEach((art, index) => {
+                const card = document.createElement('div');
+                card.className = 'art-card';
+                card.style.animationDelay = `${index * 0.05}s`;
+                card.onclick = () => openLightbox(art);
+
+                card.innerHTML = `
+                    <div class="art-image-wrapper">
+                        <img src="${art.src}" alt="${art.title}">
+                        <div class="art-overlay">
+                            <h3 class="art-overlay-title">${art.title}</h3>
+                            <p class="art-overlay-meta">${art.medium}, ${art.year}</p>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Initial Render
+        renderGallery();
+
+        // Filter Logic
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Filter content
+                renderGallery(btn.dataset.filter);
+            });
+        });
+
+        function openLightbox(art) {
+            lbImg.src = art.src;
+            lbTitle.textContent = art.title;
+            lbMedium.textContent = art.medium;
+            lbDesc.textContent = art.description;
+            lbYear.textContent = art.year;
+
+            lightbox.style.display = 'flex';
+            // Slight delay to allow display:flex to apply before adding opacity for transition
+            setTimeout(() => {
+                lightbox.classList.add('active');
+            }, 10);
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        function closeLightbox(e) {
+            lightbox.classList.remove('active');
+            setTimeout(() => {
+                lightbox.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+    <script src="scripts/cursor.js"></script>
+</body>
+
+</html>

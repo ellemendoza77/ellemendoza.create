@@ -1,0 +1,576 @@
+:root {
+  /* Professional Light/Pastel Theme */
+  --bg-color: #FAFAF8;
+  /* Cream/Off-White */
+  --text-main: #2F3E46;
+  /* Dark Slate - Soft Black for text */
+  --text-muted: #52796F;
+  /* Muted Sage */
+  --accent-gold: #84A98C;
+  /* Sage Green (Primary Accent) */
+  --accent-secondary: #B5838D;
+  /* Dusty Pink (Secondary Accent) */
+  --card-bg: #FFFFFF;
+  /* Pure White */
+  --border-color: #CAD2C5;
+  /* Light Sage Border */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+  --transition-speed: 0.3s;
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+  /* Soft professional shadow */
+}
+
+html {
+  scroll-behavior: smooth;
+  cursor: none;
+  /* Hide default cursor */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  line-height: 1.75;
+  /* Improved readability */
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  /* For texture positioning */
+}
+
+/* Texture Overlay (Film Grain) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9000;
+  /* High but below cursor */
+  opacity: 0.04;
+  /* Very subtle */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Typography & Accents */
+::selection {
+  background: var(--accent-secondary);
+  /* Dusty Pink Highlight */
+  color: #fff;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  /* Editorial tight tracking */
+  color: var(--text-main);
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--transition-speed) ease;
+}
+
+/* Desktop: Custom cursor */
+@media (hover: hover) and (pointer: fine) {
+  html {
+    cursor: none;
+  }
+
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    cursor: none !important;
+  }
+}
+
+/* Mobile/Touch: Standard cursor */
+@media (hover: none) or (pointer: coarse) {
+  html {
+    cursor: auto;
+  }
+
+  a,
+  button {
+    cursor: pointer !important;
+  }
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Custom Cursor - Desktop Only */
+@media (hover: hover) and (pointer: fine) {
+  .cursor-brush {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    z-index: 9999;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+
+  .paint-drop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    z-index: 9998;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    background-color: var(--accent-gold);
+    opacity: 0.7;
+  }
+}
+
+/* Hide custom cursor on mobile */
+@media (hover: none) or (pointer: coarse) {
+
+  .cursor-brush,
+  .paint-drop {
+    display: none !important;
+  }
+}
+
+/* Layout Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+section {
+  padding: 6rem 0;
+  /* More breathing room */
+}
+
+/* Header */
+header {
+  width: 100%;
+  padding: 0;
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  /* Glassmorphism */
+  background: rgba(250, 250, 248, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Logo - Clean & Responsive */
+.logo {
+  font-family: var(--font-heading);
+  display: flex;
+  align-items: center;
+  height: 60px;
+  /* Allocated vertical space */
+  width: auto;
+}
+
+.logo img {
+  height: 100% !important;
+  width: auto;
+  object-fit: contain;
+  /* Ensure full logo is always visible */
+  transition: transform 0.3s ease;
+  mix-blend-mode: multiply;
+  /* Removes white background */
+}
+
+.logo-text {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--text-main);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.logo:hover img {
+  transform: scale(1.05);
+  /* Gentle hover zoom */
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+nav a {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  font-weight: 500;
+  padding: 0.5rem;
+  /* Better tap targets for mobile */
+}
+
+nav a:hover,
+nav a.active {
+  color: var(--text-main);
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+  nav ul {
+    gap: 1rem;
+  }
+
+  nav a {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.25rem;
+  }
+
+  .logo {
+    height: 50px !important;
+    min-width: 120px;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+}
+
+/* Footer */
+footer {
+  padding: 3rem 0;
+  border-top: 1px solid var(--border-color);
+  margin-top: 4rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 1px solid var(--text-main);
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  cursor: none;
+  transition: all var(--transition-speed) ease;
+}
+
+.btn:hover {
+  background: var(--text-main);
+  color: var(--bg-color);
+  border-color: var(--text-main);
+}
+
+/* Filter Buttons */
+.filter-btn {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 20px;
+  cursor: none;
+  transition: all 0.3s ease;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  border-color: var(--accent-gold);
+  color: var(--bg-color);
+  background: var(--accent-gold);
+}
+
+/* Art Cards */
+.art-card {
+  cursor: none;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+  background: var(--card-bg);
+  padding: 1rem;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.art-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* --- About Page Redesign --- */
+
+.about-split {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  /* Text larger than images */
+  gap: 4rem;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+/* Bio Section */
+.about-bio h1 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-bio p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+}
+
+.contact-box {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.email-link {
+  color: var(--accent-secondary);
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-bottom: 2px solid transparent;
+}
+
+.email-link:hover {
+  border-color: var(--accent-secondary);
+}
+
+/* Image Grid for Bio (Updated) */
+.about-images-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.grid-img {
+  aspect-ratio: 9/16;
+  /* Portrait ratio for headshots */
+  overflow: hidden;
+  background-color: var(--card-bg);
+  box-shadow: var(--shadow-soft);
+}
+
+.grid-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  /* Ensures faces aren't cropped */
+  transition: transform 0.5s ease;
+}
+
+.grid-img:hover img {
+  transform: scale(1.05);
+}
+
+/* Credentials Section */
+.credentials-wrapper {
+  background-color: var(--card-bg);
+  /* Use card background for contrast */
+  padding: 4rem 2rem;
+  /* Add internal padding */
+  margin: 4rem 0;
+  /* Align with container */
+  border-radius: 2px;
+  box-shadow: var(--shadow-soft);
+}
+
+.credentials-content h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.credentials-content .subtitle {
+  font-style: italic;
+  color: var(--accent-gold);
+  margin-bottom: 2rem;
+}
+
+.credentials-list {
+  list-style: none;
+}
+
+.credentials-list li {
+  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  /* Elegant Accent Line */
+  position: relative;
+  padding-left: 1rem;
+  border-left: 2px solid rgba(132, 169, 140, 0.3);
+  /* Soft Sage Line */
+  transition: border-color 0.3s ease;
+}
+
+.credentials-list li:hover {
+  border-left-color: var(--accent-gold);
+}
+
+.credential-year {
+  font-family: var(--font-heading);
+  color: var(--accent-secondary);
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: right;
+}
+
+.credentials-image {
+  position: relative;
+  /* Removed fixed aspect ratio to allow natural shape */
+  display: flex;
+  /* Centers image if it's smaller */
+  justify-content: center;
+}
+
+.credentials-image img {
+  width: 100%;
+  height: auto;
+  /* Allow natural height */
+  max-height: 500px;
+  /* Prevent it from being too tall */
+  object-fit: contain;
+  /* Ensure full image is visible */
+  border-radius: 4px;
+  /* Slight polish */
+  box-shadow: var(--shadow-soft);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .about-split {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .about-split.reverse-mobile {
+    display: flex;
+    flex-direction: column-reverse;
+    /* Bio on top, Images below on mobile */
+  }
+
+  .about-images-grid {
+    margin-bottom: 2rem;
+    aspect-ratio: auto;
+    /* Reset aspect ratio for mobile flow */
+  }
+
+  .grid-img {
+    aspect-ratio: 3/4;
+    /* Slightly shorter on mobile */
+  }
+}
+
+/* Home About Preview */
+.home-about-preview {
+  padding: 2rem 0;
+  margin-top: 2rem;
+}
+
+.about-preview-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.preview-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+}
+
+.preview-text p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.preview-image {
+  position: relative;
+  aspect-ratio: 1;
+  /* Square crop base */
+  /* NO overflow hidden here, handled by specific frame classes */
+  max-width: 400px;
+  justify-self: center;
+}
+
+.preview-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.5s ease;
+}
+
+/* .preview-image:hover img rule removed, replaced by specific rule in Custom Frames section */
+
+@media (max-width: 768px) {
+  .about-preview-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+  }
+}
+
+/* Custom Frames Removed per request */
+
+/* Ensure standard scaling for images works */
+.preview-image,
+.grid-img,
+.credentials-image {
+  overflow: hidden;
+  /* Restore cleaner edges */
+  background: var(--card-bg);
+  box-shadow: var(--shadow-soft);
+}
+
+.preview-image {
+  border-radius: 50%;
+  /* Restore circular shape for home page */
+}
+
+.preview-image img,
+.grid-img img,
+.credentials-image img {
+  transition: transform 0.5s ease;
+}
+
+.preview-image:hover img,
+.grid-img:hover img {
+  transform: scale(1.05);
+  /* Restore simple zoom */
+}
