@@ -5,7 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How Looking Becomes Form | Elle Mendoza</title>
-    <meta name="description" content="Portfolio of Elle Mendoza, showcasing contemporary abstract and minimalist art.">
+    <meta name="description"
+        content="Portfolio of Elle Mendoza, a Kansas City based artist exploring the intersection of emotion, observation, and personal narrative through fine art and digital media.">
+    <link rel="icon" type="image/png" href="favicon.ico">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ellemendoza.create">
+    <meta property="og:title" content="How Looking Becomes Form | Elle Mendoza">
+    <meta property="og:description"
+        content="Exploring the delicate balance between chaos and order through abstract expressionism.">
+    <meta property="og:image" content="assets/about/Me.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="How Looking Becomes Form | Elle Mendoza">
+    <meta property="twitter:description"
+        content="Exploring the delicate balance between chaos and order through abstract expressionism.">
+    <meta property="twitter:image" content="assets/about/Me.jpg">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -15,47 +33,74 @@
     <link rel="stylesheet" href="styles/animations.css">
     <style>
         /* Home Specific Styles */
-        .hero {
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            opacity: 0;
-            animation: fadeIn 1.5s ease forwards;
+        .featured-works {
+            padding: 8rem 0;
+            background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.02), transparent);
         }
 
-        .hero h1 {
-            font-size: 5vw;
-            margin-bottom: 1rem;
-            line-height: 1.1;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 3rem;
-        }
-
-        .featured-preview {
+        .featured-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
             margin-top: 4rem;
+        }
+
+        .featured-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            aspect-ratio: 4/5;
+        }
+
+        .featured-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--ease-out-expo);
+        }
+
+        .featured-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .featured-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .featured-item:hover .featured-overlay {
+            opacity: 1;
+        }
+
+        .featured-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .featured-link {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-gold);
+            font-weight: 600;
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <div class="container"
-            style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
-            <a href="index.html" class="logo"
-                style="display: flex; align-items: center; gap: 1rem; text-decoration: none;">
-                <img src="assets/logo/Logo.png" alt="Elle Mendoza Logo"
-                    style="height: 100%; width: auto; object-fit: contain;">
+    <header class="glass">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/logo/Logo.png" alt="Elle Mendoza Logo">
                 <span class="logo-text">Elle Mendoza</span>
             </a>
             <nav>
@@ -70,30 +115,48 @@
 
     <main>
         <section class="hero full-width-hero">
-            <div class="container" style="text-align: center;">
-                <h1>Visual Harmony in <br> <span style="font-style: italic; color: var(--accent-gold);">Motion &
-                        Stillness</span></h1>
-                <p>Exploring the delicate balance between chaos and order through abstract expressionism.</p>
-                <a href="gallery.html" class="btn">View Collection</a>
+            <div class="container text-center reveal">
+                <h1 class="hero-title">Visual Harmony in <br> <span class="accent-highlight">Motion & Stillness</span>
+                </h1>
+                <p class="hero-subtitle">Exploring the delicate balance between chaos and order through abstract
+                    expressionism.</p>
+                <div class="hero-cta">
+                    <a href="gallery.html" class="btn btn-primary">View Collection</a>
+                </div>
             </div>
         </section>
 
-        <div class="container">
-            <section class="home-about-preview">
+        <section class="home-about-preview">
+            <div class="container">
                 <div class="about-preview-container">
-                    <div class="preview-text">
-                        <h2>About the Artist</h2>
+                    <div class="preview-text reveal-left">
+                        <h2 class="section-title">About the Artist</h2>
                         <p>Elle Mendoza is a Kansas City based artist exploring the intersection of emotion,
                             observation, and personal narrative across fine art and digital media. Her work invites
                             viewers to slow down and engage on an emotional and sensory level.</p>
                         <a href="about.html" class="btn">Read More</a>
                     </div>
-                    <div class="preview-image">
-                        <img src="assets/about/Me.jpg" alt="Elle Mendoza">
+                    <div class="preview-image reveal-right">
+                        <div class="image-frame">
+                            <img src="assets/about/Me.jpg" alt="Elle Mendoza">
+                        </div>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
+
+        <section class="featured-works">
+            <div class="container">
+                <h2 class="section-title text-center reveal">Featured Works</h2>
+                <div class="featured-grid" id="featured-container">
+                    <!-- Featured works will be injected here -->
+                </div>
+                <div class="text-center mt-4 reveal">
+                    <a href="gallery.html" class="btn">Full Gallery</a>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer>
@@ -103,11 +166,30 @@
     </footer>
 
     <script src="scripts/data.js"></script>
-    <script src="scripts/data.js"></script>
     <script>
-        // Any specific home page logic if needed in future
+        // Inject a few featured works
+        const featuredContainer = document.getElementById('featured-container');
+        if (featuredContainer && typeof artworks !== 'undefined') {
+            const featuredCount = 3;
+            const featured = artworks.slice(0, featuredCount);
+
+            featured.forEach(art => {
+                const item = document.createElement('div');
+                item.className = 'featured-item reveal';
+                item.innerHTML = `
+                    <img src="${art.src}" alt="${art.title}">
+                    <div class="featured-overlay">
+                        <h3 class="featured-title">${art.title}</h3>
+                        <a href="gallery.html" class="featured-link">View Details</a>
+                    </div>
+                `;
+                featuredContainer.appendChild(item);
+            });
+        }
     </script>
+    <script src="scripts/animations.js"></script>
     <script src="scripts/cursor.js"></script>
+
 </body>
 
 </html>

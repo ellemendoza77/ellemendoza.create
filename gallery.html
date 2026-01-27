@@ -5,19 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How Looking Becomes Form | Gallery</title>
+    <meta name="description" content="A curated collection of traditional and digital art by Elle Mendoza.">
+    <link rel="icon" type="image/png" href="favicon.ico">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/animations.css">
     <style>
         /* Masonry Gallery Wall Layout */
         .gallery-grid {
             column-count: 3;
-            column-gap: 0.75rem;
+            column-gap: 1.5rem;
             padding: 2rem 0;
         }
 
         @media (max-width: 1024px) {
             .gallery-grid {
                 column-count: 2;
+                column-gap: 1rem;
             }
         }
 
@@ -30,26 +33,29 @@
         .art-card {
             cursor: pointer;
             opacity: 0;
-            animation: fadeInUp 0.5s ease forwards;
+            animation: fadeInUp 0.8s var(--ease-out-expo) forwards;
             break-inside: avoid;
-            margin-bottom: 0.75rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 1.5rem;
+            transition: transform 0.6s var(--ease-out-expo), box-shadow 0.6s var(--ease-out-expo);
             padding: 0;
-            border: none;
-            background: transparent;
+            border: 1px solid var(--glass-border);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            overflow: hidden;
+            border-radius: 4px;
         }
 
         .art-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            border-color: rgba(212, 175, 55, 0.3);
         }
 
         .art-image-wrapper {
             position: relative;
             overflow: hidden;
             width: 100%;
-            padding: 0;
-            margin: 0;
             display: block;
         }
 
@@ -57,26 +63,20 @@
             width: 100%;
             height: auto;
             display: block;
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            margin: 0;
-            padding: 0;
-            border: none;
+            transition: transform 1.2s var(--ease-out-expo);
         }
 
         /* Hover Overlay with Title */
         .art-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 1.5rem;
+            padding: 2rem;
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s ease;
         }
 
         .art-card:hover .art-overlay {
@@ -84,16 +84,16 @@
         }
 
         .art-card:hover .art-image-wrapper img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .art-overlay-title {
             color: white;
             font-family: var(--font-heading);
-            font-size: 1.3rem;
-            margin-bottom: 0.25rem;
-            transform: translateY(10px);
-            transition: transform 0.4s ease;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            transform: translateY(20px);
+            transition: transform 0.6s var(--ease-out-expo);
         }
 
         .art-card:hover .art-overlay-title {
@@ -101,10 +101,12 @@
         }
 
         .art-overlay-meta {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.85rem;
-            transform: translateY(10px);
-            transition: transform 0.4s ease 0.05s;
+            color: var(--accent-gold);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transform: translateY(20px);
+            transition: transform 0.6s var(--ease-out-expo) 0.1s;
         }
 
         .art-card:hover .art-overlay-meta {
@@ -114,94 +116,127 @@
         /* Lightbox Styles */
         .lightbox {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 2000;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
         }
 
         .lightbox.active {
             display: flex;
-            /* Flex is used for centering */
             opacity: 1;
         }
 
         .lightbox-content {
             display: flex;
-            max-width: 90vw;
+            max-width: 95vw;
             max-height: 90vh;
-            gap: 2rem;
+            gap: 4rem;
             align-items: center;
+            padding: 2rem;
         }
 
         .lightbox-img-wrapper {
-            flex: 1;
-            max-height: 90vh;
+            flex: 1.5;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
         }
 
         .lightbox-img {
             max-width: 100%;
-            max-height: 90vh;
+            max-height: 85vh;
             object-fit: contain;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.8s var(--ease-out-expo);
         }
 
         .lightbox-details {
-            width: 300px;
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            flex: 1;
+            max-width: 400px;
+            color: white;
+        }
+
+        .lb-title {
+            font-size: 2.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .lb-medium {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .lb-desc {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+        }
+
+        .lb-year {
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.4);
         }
 
         .lightbox-close {
             position: absolute;
-            top: 2rem;
-            right: 2rem;
-            color: var(--text-main);
-            font-size: 2rem;
+            top: 3rem;
+            right: 3rem;
+            color: white;
+            font-size: 3rem;
             background: none;
             border: none;
             cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+            line-height: 1;
         }
 
-        @media (max-width: 768px) {
+        .lightbox-close:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 1024px) {
             .lightbox-content {
                 flex-direction: column;
-                width: 100%;
+                gap: 2rem;
+                overflow-y: auto;
             }
 
             .lightbox-details {
-                width: 100%;
+                max-width: 100%;
                 text-align: center;
-                padding: 1rem;
             }
 
-            .lightbox-img {
-                max-height: 60vh;
+            .lb-title {
+                font-size: 1.8rem;
             }
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <div class="container"
-            style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
-            <a href="index.html" class="logo"
-                style="display: flex; align-items: center; gap: 1rem; text-decoration: none;">
-                <img src="assets/logo/Logo.png" alt="Elle Mendoza Logo"
-                    style="height: 100%; width: auto; object-fit: contain;">
+    <header class="glass">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/logo/Logo.png" alt="Elle Mendoza Logo">
                 <span class="logo-text">Elle Mendoza</span>
             </a>
             <nav>
@@ -216,10 +251,11 @@
 
     <main class="container">
         <section>
-            <h1 style="margin-bottom: 2rem;">Selected Works</h1>
+            <h1 class="mb-2">Selected Works</h1>
+
 
             <!-- Filter Buttons -->
-            <div class="filters" style="margin-bottom: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <div class="filters">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="traditional">Traditional</button>
                 <button class="filter-btn" data-filter="digital">Digital</button>
@@ -246,10 +282,10 @@
                 <img src="" alt="" class="lightbox-img" id="lb-img">
             </div>
             <div class="lightbox-details">
-                <h2 id="lb-title" style="margin-bottom: 0.5rem; font-size: 1.5rem;"></h2>
-                <p id="lb-medium" style="color: var(--accent-gold); margin-bottom: 1rem;"></p>
-                <p id="lb-desc" style="line-height: 1.6; color: var(--text-muted);"></p>
-                <p id="lb-year" style="margin-top: 1rem; font-size: 0.8rem; font-style: italic;"></p>
+                <h2 id="lb-title" class="lb-title"></h2>
+                <p id="lb-medium" class="lb-medium"></p>
+                <p id="lb-desc" class="lb-desc"></p>
+                <p id="lb-year" class="lb-year"></p>
             </div>
         </div>
     </div>
@@ -293,7 +329,7 @@
 
                 card.innerHTML = `
                     <div class="art-image-wrapper">
-                        <img src="${art.src}" alt="${art.title}">
+                        <img src="${art.src}" alt="${art.title}" onload="this.parentElement.classList.add('loaded')">
                         <div class="art-overlay">
                             <h3 class="art-overlay-title">${art.title}</h3>
                             <p class="art-overlay-meta">${art.medium}, ${art.year}</p>
@@ -347,6 +383,7 @@
             if (e.key === 'Escape') closeLightbox();
         });
     </script>
+    <script src="scripts/animations.js"></script>
     <script src="scripts/cursor.js"></script>
 </body>
 

@@ -5,18 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How Looking Becomes Form | About</title>
+    <meta name="description" content="Learn more about Elle Mendoza, a Kansas City based artist and visionary.">
+    <link rel="icon" type="image/png" href="favicon.ico">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/animations.css">
 </head>
 
 <body>
-    <header>
-        <div class="container"
-            style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
-            <a href="index.html" class="logo"
-                style="display: flex; align-items: center; gap: 1rem; text-decoration: none;">
-                <img src="assets/logo/Logo.png" alt="Elle Mendoza Logo"
-                    style="height: 100%; width: auto; object-fit: contain;">
+    <header class="glass">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/logo/Logo.png" alt="Elle Mendoza Logo">
                 <span class="logo-text">Elle Mendoza</span>
             </a>
             <nav>
@@ -44,36 +43,26 @@
                 </div>
 
                 <!-- Left Column (Bio) - Desktop Order 1 -->
-                <div class="about-bio">
-                    <h1 class="fade-in">Artist & Visionary</h1>
-                    <p class="fade-in-up delay-1">Elle Mendoza is a Kansas City based artist working across fine art
+                <div class="about-bio reveal-left">
+                    <h1>Artist & Visionary</h1>
+                    <p>Elle Mendoza is a Kansas City based artist working across fine art
                         and digital media. Her practice explores the intersection of emotion, observation, and
                         personal narrative, often using texture, form, and subtle symbolism to give shape to
                         experiences that are difficult to articulate.</p>
-                    <p class="fade-in-up delay-2">With a background in fine arts and digital media, Elle works
+                    <p>With a background in fine arts and digital media, Elle works
                         fluidly between traditional and digital processes, allowing experimentation and intuition to
                         guide her work. Her pieces are rooted in careful observation and hands-on making, inviting
                         viewers to slow down and engage with the work on an emotional and sensory level.</p>
-                    <p class="fade-in-up delay-3">Elle's artistic interests include figure-based work, expressive
-                        mark-making, and visual storytelling. Whether working in physical materials or digital
-                        formats, her goal is to create work that feels intimate, reflective, and human. Art that
-                        lingers rather than demands.</p>
-
-                    <div class="contact-box fade-in-up delay-3">
-                        <h3>Inquiries</h3>
-                        <p>For commissions, exhibitions, or general inquiries:</p>
-                        <a href="mailto:ellemendoza.create@gmail.com"
-                            class="email-link">ellemendoza.create@gmail.com</a>
-                    </div>
                 </div>
             </div>
         </section>
 
+
         <!-- Education & Credentials Section -->
-        <section class="credentials-wrapper">
+        <section class="credentials-wrapper reveal">
             <div class="about-split">
                 <!-- Left Column (Credentials) -->
-                <div class="credentials-content fade-in-up">
+                <div class="credentials-content">
                     <h2>Education & Recognition</h2>
                     <p class="subtitle">A testament to the journey of continuous learning and artistic evolution.
                     </p>
@@ -84,12 +73,9 @@
                             <span class="credential-year">2024-25</span>
                             <div>
                                 <strong>Art Exhibition and Curation</strong>
-                                <span
-                                    style="display:block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.25rem;">Alcott
-                                    Arts Center, Kansas City, MO</span>
-                                <p style="font-size: 0.85rem; color: var(--text-main); line-height: 1.4;">Exhibited
-                                    original work in a group showcase and assisted with exhibition preparation and
-                                    layout.</p>
+                                <span class="credential-info mb-1">Alcott Arts Center, Kansas City, MO</span>
+                                <p class="credential-text">Exhibited original work in a group showcase and assisted with
+                                    exhibition preparation and layout.</p>
                             </div>
                         </li>
 
@@ -98,15 +84,12 @@
                             <span class="credential-year">Dec 2025</span>
                             <div>
                                 <strong>Bachelor of Fine Arts in Media, Art, and Design</strong>
-                                <span
-                                    style="display:block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">University
-                                    of Missouri-Kansas City</span>
+                                <span class="credential-info mb-1">University of Missouri-Kansas City</span>
 
-                                <div style="font-size: 0.85rem;">
-                                    <span style="font-weight: 600; color: var(--accent-gold);">Relevant
-                                        Coursework:</span>
-                                    <span style="color: var(--text-muted);">Directed Projects, Interdisciplinary
-                                        Projects, World Cinema, Entrepreneurship Toolkit.</span>
+                                <div class="credential-text">
+                                    <span class="accent-highlight font-bold">Relevant Coursework:</span>
+                                    <span>Directed Projects, Interdisciplinary Projects, World Cinema, Entrepreneurship
+                                        Toolkit.</span>
                                 </div>
                             </div>
                         </li>
@@ -124,11 +107,38 @@
                 </div>
 
                 <!-- Right Column (Grad Photo) -->
-                <div class="credentials-image fade-in-left">
+                <div class="credentials-image reveal-right">
                     <img src="assets/about/Grad.JPG" alt="Elle Mendoza Graduation">
                 </div>
             </div>
         </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section reveal">
+            <div class="glass contact-container">
+                <div class="contact-header text-center">
+                    <h2 class="section-title">Bring a Vision to Life</h2>
+                    <p>For commissions, exhibitions, or to simply start a conversation about art and observation.</p>
+                </div>
+
+                <div class="contact-methods">
+                    <div class="method">
+                        <span class="method-label">Direct Email</span>
+                        <a href="mailto:ellemendoza.create@gmail.com"
+                            class="method-value">ellemendoza.create@gmail.com</a>
+                    </div>
+                    <div class="method">
+                        <span class="method-label">Location</span>
+                        <span class="method-value">Kansas City, MO</span>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="mailto:ellemendoza.create@gmail.com" class="btn btn-primary">Get in Touch</a>
+                </div>
+            </div>
+        </section>
+
 
     </main>
 
@@ -137,6 +147,8 @@
             <p>&copy; 2026 Elle Mendoza. All Rights Reserved.</p>
         </div>
     </footer>
+    <script src="scripts/data.js"></script>
+    <script src="scripts/animations.js"></script>
     <script src="scripts/cursor.js"></script>
 </body>
 

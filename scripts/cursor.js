@@ -1,54 +1,53 @@
 // Custom Cursor Logic
 const cursorBrush = document.createElement('img');
-cursorBrush.src = 'assets/paintbrush.svg';
+cursorBrush.src = 'assets/paintbrush.png';
 cursorBrush.className = 'cursor-brush';
 cursorBrush.alt = 'Paintbrush Cursor';
 
-// Create 3 Paint Drops
+// Create 5 Paint Drops for a smoother trail
 const drops = [];
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 5; i++) {
     const drop = document.createElement('div');
     drop.className = 'paint-drop';
-    // Stagger sizes
-    const size = 8 - (i * 2); // 8px, 6px, 4px
+    const size = 10 - (i * 2);
     drop.style.width = `${size}px`;
     drop.style.height = `${size}px`;
-
-    // Initial opacity 0
     drop.style.opacity = '0';
-
-    // Add transition for trail effect (lag)
-    // More delay = further back in trail
-    drop.style.transition = `left ${0.1 + (i * 0.05)}s ease-out, top ${0.1 + (i * 0.05)}s ease-out`;
-
+    drop.style.transition = `left ${0.05 + (i * 0.03)}s var(--ease-out-expo), top ${0.05 + (i * 0.03)}s var(--ease-out-expo)`;
     document.body.appendChild(drop);
     drops.push(drop);
 }
 
-// Initially hide until movement
 cursorBrush.style.opacity = '0';
 document.body.appendChild(cursorBrush);
+
+let lastX = 0;
+let lastY = 0;
 
 window.addEventListener('mousemove', (e) => {
     const posX = e.clientX;
     const posY = e.clientY;
 
-    // Show components
     cursorBrush.style.opacity = '1';
-    drops.forEach(d => d.style.opacity = '0.6');
+    drops.forEach(d => d.style.opacity = '0.4');
 
-    // Move Brush (instant or very fast)
     cursorBrush.style.left = `${posX}px`;
     cursorBrush.style.top = `${posY}px`;
 
-    // Move Drops (CSS transition handles the lag/trail)
+    // Add a slight rotation based on movement direction
+    const deltaX = posX - lastX;
+    const rotation = deltaX * 0.2;
+    cursorBrush.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+
     drops.forEach(drop => {
         drop.style.left = `${posX}px`;
         drop.style.top = `${posY}px`;
     });
+
+    lastX = posX;
+    lastY = posY;
 });
 
-// Hide when leaving window
 document.addEventListener('mouseout', (e) => {
     if (!e.relatedTarget && !e.toElement) {
         cursorBrush.style.opacity = '0';
@@ -60,23 +59,17 @@ document.addEventListener('mouseenter', () => {
     cursorBrush.style.opacity = '1';
 });
 
-// Event Delegation for Hover Effects
-// This prevents duplicate listeners and handles dynamic content automatically
 document.addEventListener('mouseover', (e) => {
-    const target = e.target.closest('a, button, .art-card, .lightbox-close, input, textarea, .filter-btn');
+    const target = e.target.closest('a, button, .art-card, .lightbox-close, input, textarea, .filter-btn, .image-frame');
     if (target) {
-        cursorBrush.style.transform = 'translate(-50%, -50%) scale(1.2)'; // Simple scale, no rotation
+        cursorBrush.classList.add('cursor-hover');
     }
 });
 
 document.addEventListener('mouseout', (e) => {
-    const target = e.target.closest('a, button, .art-card, .lightbox-close, input, textarea, .filter-btn');
+    const target = e.target.closest('a, button, .art-card, .lightbox-close, input, textarea, .filter-btn, .image-frame');
     if (target) {
-        cursorBrush.style.transform = 'translate(-50%, -50%) scale(1)'; // Reset
+        cursorBrush.classList.remove('cursor-hover');
     }
 });
 
-// Deprecated: explicit bind function no longer needed due to delegation
-function refreshCursorTargets() {
-    // No-op
-}
