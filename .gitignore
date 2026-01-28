@@ -10,3 +10,4 @@ node_modules/
 server.log
 ngrok.log
 ngrok_final.log
+*.pid
